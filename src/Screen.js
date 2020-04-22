@@ -2,8 +2,11 @@ import React from "react";
 
 function Screen(props) {
   return (
-    <div>
-      {props.firstOperand} {props.operation}  {props.secondOperand}
+    <div className="calc-screen">
+      <div className="calc-screen__history">
+        -
+      </div>
+      <input className="calc-screen__result" placeholder="0" />
     </div>
   )
 }

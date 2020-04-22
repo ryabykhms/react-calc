@@ -1,9 +1,14 @@
 import React from "react";
-import Buttons from "./Buttons";
+import Panel from "./Panel";
 import Screen from "./Screen";
+import './Calculator.css';
 
 const operations = [
-  '+', '-', '*', '/', '='
+  ['^', '!', '+-', 'C', '()', '<=', '/'],
+  ['asin', 'sin', '1/x', '7', '8', '9', '*'],
+  ['acos', 'cos', 'sqrt', '4', '5', '6', '-'],
+  ['atan', 'tan', 'ln', '1', '2', '3', '+'],
+  ['lg', 'pi', 'e', '0', '%', ',', '='],
 ];
 
 const calculate = (firstOperand, secondOperand, operation) => {
@@ -29,21 +34,13 @@ class Calculator extends React.Component {
       secondOperand: null,
       operation: null
     };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    
   }
 
   render() {
-    const firstOperand = this.state.firstOperand;
-    const secondOperand = this.state.secondOperand;
-    const operation = this.state.operation;
     return (
-      <div>
-        <Screen firstOperand={firstOperand} secondOperand={secondOperand} operation={operation} />
-        <Buttons operations={operations} onClick={this.handleClick} />
+      <div className="calc">
+        <Screen  />
+        <Panel operations={operations}  />
       </div>
     );
   }

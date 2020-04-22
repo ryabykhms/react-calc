@@ -1,12 +1,12 @@
 import React from "react";
 
-function Operation(props) {
+function Button(props) {
   const operation = props.operation;
   return (
-    <button>
+    <button className="calc-button">
       {operation}
     </button>
   )
 }
 
-export default Operation;
+export default Button;
