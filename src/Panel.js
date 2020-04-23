@@ -3,13 +3,15 @@ import React from "react";
 
 function Panel(props) {
   const operations = props.operations;
-  const operationButtons = operations.map((operations) => {
+  const onButtonClick = props.onButtonClick;
+
+  const operationButtons = operations.map((operations, id) => {
     return (
-      <div className="calc-panel__row">
+      <div className="calc-panel__row" key={id}>
         {
-          operations.map((operation) => {
+          operations.map((operation, idx) => {
             return (
-              <Button operation={operation}/>
+              <Button key={idx} operation={operation} onButtonClick={onButtonClick} />
             )
           })
         }

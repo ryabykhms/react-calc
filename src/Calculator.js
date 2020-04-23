@@ -30,17 +30,33 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstOperand: 0,
-      secondOperand: null,
-      operation: null
+      history: null,
+      result: '',
     };
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleButtonClick(e) {
+    const operation = e.target.value;
+    this.setState((prevState) => ({
+      result: prevState.result + operation
+    }));
+  }
+
+  handleChange(e) {
+    this.setState({
+      result: e.target.value
+    })
   }
 
   render() {
+    const result = this.state.result;
     return (
       <div className="calc">
-        <Screen  />
-        <Panel operations={operations}  />
+        <Screen result={result} onChange={this.handleChange} />
+        <Panel operations={operations} onButtonClick={this.handleButtonClick} />
       </div>
     );
   }
