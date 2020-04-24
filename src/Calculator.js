@@ -30,15 +30,18 @@ class Calculator extends React.Component {
     };
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleHistoryClick = this.handleHistoryClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleButtonClick(e) {
     const operation = e.target.value;
     let result = this.state.result;
+    let history = this.state.history;
     switch (operation) {
       case '=':
         result = calculate(this.state.result);
+        history = result === 'Error' ? null : result;
         break;
       case 'C':
         result = '';
@@ -54,8 +57,18 @@ class Calculator extends React.Component {
         }
     }
     this.setState({
-      result
+      result,
+      history
     });
+  }
+
+  handleHistoryClick(e) {
+    const history = e.target.innerHTML;
+    if (history) {
+      this.setState((prevState) => ({
+        result: prevState.result + history
+      }));
+    }
   }
 
   handleChange(e) {
@@ -66,9 +79,10 @@ class Calculator extends React.Component {
 
   render() {
     const result = this.state.result;
+    const history = this.state.history;
     return (
       <div className="calc">
-        <Screen result={result} onChange={this.handleChange}/>
+        <Screen result={result} history={history} onChange={this.handleChange} onHistoryClick={this.handleHistoryClick} />
         <Panel operations={operations} onButtonClick={this.handleButtonClick}/>
       </div>
     );

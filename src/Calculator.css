@@ -27,6 +27,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: right;
+  cursor: pointer;
 }
 
 .calc-screen__result {
