@@ -11,18 +11,13 @@ const operations = [
   ['lg', 'pi', 'e', '0', '%', ',', '='],
 ];
 
-const calculate = (firstOperand, secondOperand, operation) => {
-  switch (operation) {
-    case '+':
-      return firstOperand + secondOperand;
-    case '-':
-      return firstOperand - secondOperand;
-    case '*':
-      return firstOperand * secondOperand;
-    case '/':
-      return firstOperand / secondOperand;
-    default:
-      return firstOperand;
+
+const calculate = (expression) => {
+  try {
+    const calcFunc = new Function(`return ${expression}`);
+    return calcFunc();
+  } catch (e) {
+    return 'Error';
   }
 };
 
@@ -40,9 +35,27 @@ class Calculator extends React.Component {
 
   handleButtonClick(e) {
     const operation = e.target.value;
-    this.setState((prevState) => ({
-      result: prevState.result + operation
-    }));
+    let result = this.state.result;
+    switch (operation) {
+      case '=':
+        result = calculate(this.state.result);
+        break;
+      case 'C':
+        result = '';
+        break;
+      case '<=':
+        result = result.slice(0, -1);
+        break;
+      default:
+        if (result === 'Error') {
+          result = operation;
+        } else {
+          result += operation;
+        }
+    }
+    this.setState({
+      result
+    });
   }
 
   handleChange(e) {
@@ -55,11 +68,12 @@ class Calculator extends React.Component {
     const result = this.state.result;
     return (
       <div className="calc">
-        <Screen result={result} onChange={this.handleChange} />
-        <Panel operations={operations} onButtonClick={this.handleButtonClick} />
+        <Screen result={result} onChange={this.handleChange}/>
+        <Panel operations={operations} onButtonClick={this.handleButtonClick}/>
       </div>
     );
   }
 }
 
 export default Calculator;
+
