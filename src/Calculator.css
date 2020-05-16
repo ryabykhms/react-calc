@@ -5,6 +5,7 @@
   flex-direction: column;
   border: 1px solid #ccc;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .calc-screen {
@@ -42,4 +43,6 @@
 .calc-button {
   width: 50px;
   height: 40px;
+  border: none;
+  outline: none;
 }
