@@ -11,4 +11,4 @@ Supported features:
 - [ ] Factorial.
 - [ ] Pi.
 
-![Example](demo/demo.gif) 
+![Example](demo/demo.jpg) 
