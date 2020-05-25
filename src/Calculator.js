@@ -1,6 +1,7 @@
 import React from "react";
 import Panel from "./Panel";
 import Screen from "./Screen";
+import Calc from "./js-calc-parser/Calc";
 import './Calculator.css';
 
 const operations = [
@@ -14,8 +15,11 @@ const operations = [
 
 const calculate = (expression) => {
   try {
-    const calcFunc = new Function(`return ${expression}`);
-    return calcFunc();
+    const calc = new Calc();
+    const result = calc.calculate(expression);
+    return result;
+    // const calcFunc = new Function(`return ${expression}`);
+    // return calcFunc();
   } catch (e) {
     return 'Error';
   }
