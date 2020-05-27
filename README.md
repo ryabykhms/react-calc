@@ -9,6 +9,6 @@ Supported features:
 - [ ] Percent operation.
 - [ ] Exponent.
 - [ ] Factorial.
-- [ ] Pi.
+- [x] Pi.
 
 ![Example](demo/demo.jpg) 
