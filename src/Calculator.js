@@ -25,6 +25,15 @@ const calculate = (expression) => {
   }
 };
 
+const countParentheses = (str) => {
+  const countOpen = str !== null ? str.split('(').length - 1 : 0;
+  const countClose = str !== null ? str.split(')').length - 1 : 0;
+  return {
+    countOpen,
+    countClose
+  };
+};
+
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +53,13 @@ class Calculator extends React.Component {
     let history = this.state.history;
     switch (operation) {
       case '=':
-        result = calculate(this.state.result);
+        const countParentheses1 = countParentheses(this.state.result);
+        const countMissed = countParentheses1.countOpen - countParentheses1.countClose;
+        result = this.state.result;
+        for(let i=0; i < countMissed; i++) {
+          result += ')';
+        }
+        result = calculate(result);
         history = result === 'Error' ? null : result;
         break;
       case 'C':
@@ -52,6 +67,14 @@ class Calculator extends React.Component {
         break;
       case '<=':
         result = result.slice(0, -1);
+        break;
+      case '()':
+        const countParentheses2 = countParentheses(result);
+        const lastChar = result.slice(-1);
+        result = /\D/.test(lastChar) && lastChar !== ')' ? result + '(' :
+          countParentheses2.countOpen > countParentheses2.countClose ?
+          result + ')' :
+          countParentheses2.countOpen === countParentheses2.countClose ? result + '(' : result;
         break;
       default:
         if (result === 'Error') {
