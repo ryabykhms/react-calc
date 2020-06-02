@@ -76,6 +76,21 @@ class Calculator extends React.Component {
           result + ')' :
           countParentheses2.countOpen === countParentheses2.countClose ? result + '(' : result;
         break;
+      case '+-':
+        if (result.charAt(0) === '-') {
+          if (/^-\d+$/.test(result) === false) {
+            result = result.slice(2, result.length-1);
+          } else {
+            result = result.slice(1);
+          }
+        } else if (result !== '') {
+          if (/^\d+$/.test(result) === false) {
+            result = '-(' + result + ')';
+          } else {
+            result = '-' + result + '';
+          }
+        }
+        break;
       case 'sin':
       case 'cos':
       case 'tan':
