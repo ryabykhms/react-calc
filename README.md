@@ -6,6 +6,7 @@ Supported features:
 - [x] Trigonometric operations.
 - [x] Logarithmic operations.
 - [x] Basic math operations.
+- [x] Inversion operation.
 - [ ] Percent operation.
 - [ ] Exponent.
 - [ ] Factorial.
