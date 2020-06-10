@@ -12,6 +12,10 @@ const TokenType = {
   RPAREN: 'RPAREN',
   COMMA: 'COMMA',
 
+  FACT: 'FACT',
+  POW: 'POW',
+  PERCENT: 'PERCENT',
+
   EOF: 'EOF',
 };
 

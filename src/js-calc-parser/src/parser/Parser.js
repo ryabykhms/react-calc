@@ -37,18 +37,51 @@ class Parser {
   }
 
   expression() {
-    return this.additive();
+    return this.fact();
+  }
+
+  fact() {
+    const result = this.power();
+    if (this.match(TokenType.FACT)) {
+      const functionalExpression = new FunctionalExpression('fact');
+      functionalExpression.addArgument(result);
+      return functionalExpression;
+    }
+    return result;
+  }
+
+  power() {
+    let result = this.additive();
+    while (true) {
+      if (this.match(TokenType.POW)) {
+        result = new BinaryExpression('^', result, this.additive());
+        continue;
+      }
+      break;
+    }
+    return result;
   }
 
   additive() {
     let result = this.multiplicative();
+    let rightExpression = null;
     while (true) {
       if (this.match(TokenType.PLUS)) {
-        result = new BinaryExpression('+', result, this.multiplicative());
+        rightExpression = this.multiplicative();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('+%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('+', result, rightExpression);
+        }
         continue;
       }
       if (this.match(TokenType.MINUS)) {
-        result = new BinaryExpression('-', result, this.multiplicative());
+        rightExpression = this.multiplicative();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('-%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('-', result, rightExpression);
+        }
         continue;
       }
       break;
@@ -58,13 +91,24 @@ class Parser {
 
   multiplicative() {
     let result = this.unary();
+    let rightExpression = null;
     while (true) {
       if (this.match(TokenType.STAR)) {
-        result = new BinaryExpression('*', result, this.unary());
+        rightExpression = this.unary();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('*%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('*', result, rightExpression);
+        }
         continue;
       }
       if (this.match(TokenType.SLASH)) {
-        result = new BinaryExpression('/', result, this.unary());
+        rightExpression = this.unary();
+        if (this.match(TokenType.PERCENT)) {
+          result = new BinaryExpression('/%', result, rightExpression);
+        } else {
+          result = new BinaryExpression('/', result, rightExpression);
+        }
         continue;
       }
       break;
@@ -90,6 +134,7 @@ class Parser {
     if (this.match(TokenType.HEX_NUMBER)) {
       return new NumberExpression(parseInt(current, 16));
     }
+
     if (this.get(0).type === TokenType.WORD && this.get(1).type === TokenType.LPAREN) {
       return this.func();
     }
