@@ -91,6 +91,12 @@ class Calculator extends React.Component {
           }
         }
         break;
+      case 'pi':
+        result += 'PI';
+        break;
+      case 'e':
+        result += 'E';
+        break;
       case 'sin':
       case 'cos':
       case 'tan':
