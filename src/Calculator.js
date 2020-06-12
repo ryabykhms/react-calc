@@ -91,6 +91,13 @@ class Calculator extends React.Component {
           }
         }
         break;
+      case '1/x':
+        if (result.indexOf('1/(') === 0 && result.charAt(result.length-1) === ')') {
+          result = result.substr(3, result.length-4);
+        } else {
+          result = '1/(' + result + ')';
+        }
+        break;
       case 'pi':
         result += 'PI';
         break;
