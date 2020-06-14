@@ -8,9 +8,9 @@ Supported features:
 - [x] Logarithmic operations.
 - [x] Basic math operations.
 - [x] Inversion operation.
-- [ ] Percent operation.
+- [x] Percent operation.
 - [ ] Exponent.
-- [ ] Factorial.
+- [x] Factorial.
 - [x] Pi.
 
 ![Example](demo/demo.gif) 
