@@ -9,7 +9,7 @@ Supported features:
 - [x] Basic math operations.
 - [x] Inversion operation.
 - [x] Percent operation.
-- [ ] Exponent.
+- [x] Exponent.
 - [x] Factorial.
 - [x] Pi.
 
