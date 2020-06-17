@@ -19,3 +19,15 @@ code {
   width: 100vw;
   height: 100vh;
 }
+
+.calc-panel__row .calc-button:nth-child(-n+3) {
+  background-color: #ebebeb;
+}
+
+.calc-panel__row .calc-button:not(:nth-child(-n+3)) {
+  background-color: #fff;
+}
+
+.calc-panel__row .calc-button:last-child {
+  background-color: #fc0;
+}
