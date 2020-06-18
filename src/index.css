@@ -20,8 +20,16 @@ code {
   height: 100vh;
 }
 
+.calc-panel {
+  border-top: 1px solid #ccc;
+}
+
 .calc-panel__row .calc-button:nth-child(-n+3) {
   background-color: #ebebeb;
+}
+
+.calc-panel__row .calc-button:nth-child(3n) {
+  border-right: 1px solid #ccc;
 }
 
 .calc-panel__row .calc-button:not(:nth-child(-n+3)) {
