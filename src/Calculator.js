@@ -50,6 +50,7 @@ class Calculator extends React.Component {
   handleButtonClick(e) {
     const operation = e.target.value;
     let result = this.state.result;
+    result = result !== undefined ? result.toString() : '';
     let history = this.state.history;
     switch (operation) {
       case '=':
