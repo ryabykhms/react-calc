@@ -57,7 +57,7 @@ class Calculator extends React.Component {
         const countParentheses1 = countParentheses(this.state.result);
         const countMissed = countParentheses1.countOpen - countParentheses1.countClose;
         result = this.state.result;
-        for(let i=0; i < countMissed; i++) {
+        for (let i = 0; i < countMissed; i++) {
           result += ')';
         }
         result = calculate(result);
@@ -74,13 +74,13 @@ class Calculator extends React.Component {
         const lastChar = result.slice(-1);
         result = /\D/.test(lastChar) && lastChar !== ')' ? result + '(' :
           countParentheses2.countOpen > countParentheses2.countClose ?
-          result + ')' :
-          countParentheses2.countOpen === countParentheses2.countClose ? result + '(' : result;
+            result + ')' :
+            countParentheses2.countOpen === countParentheses2.countClose ? result + '(' : result;
         break;
       case '+-':
         if (result.charAt(0) === '-') {
           if (/^-\d+$/.test(result) === false) {
-            result = result.slice(2, result.length-1);
+            result = result.slice(2, result.length - 1);
           } else {
             result = result.slice(1);
           }
@@ -93,8 +93,8 @@ class Calculator extends React.Component {
         }
         break;
       case '1/x':
-        if (result.indexOf('1/(') === 0 && result.charAt(result.length-1) === ')') {
-          result = result.substr(3, result.length-4);
+        if (result.indexOf('1/(') === 0 && result.charAt(result.length - 1) === ')') {
+          result = result.substr(3, result.length - 4);
         } else {
           result = '1/(' + result + ')';
         }
@@ -139,8 +139,26 @@ class Calculator extends React.Component {
   }
 
   handleChange(e) {
+    const lastOperator = e.target.value.toString().slice(-1);
+    let result = e.target.value.toString();
+    let history = this.state.history;
+    if (lastOperator === '=') {
+      result = result.substr(0, result.length - 1);
+      const resultCalc = calculate(result);
+      if (resultCalc !== 'Error') {
+        result = resultCalc;
+        history = resultCalc;
+      }
+    } else {
+      const historyCalc = calculate(result);
+      if (historyCalc !== 'Error') {
+        history = historyCalc;
+      }
+    }
+
     this.setState({
-      result: e.target.value
+      result: result,
+      history: history,
     })
   }
 
@@ -149,7 +167,8 @@ class Calculator extends React.Component {
     const history = this.state.history;
     return (
       <div className="calc">
-        <Screen result={result} history={history} onChange={this.handleChange} onHistoryClick={this.handleHistoryClick} />
+        <Screen result={result} history={history} onChange={this.handleChange}
+                onHistoryClick={this.handleHistoryClick}/>
         <Panel operations={operations} onButtonClick={this.handleButtonClick}/>
       </div>
     );
