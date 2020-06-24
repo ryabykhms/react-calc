@@ -123,6 +123,8 @@ class Calculator extends React.Component {
           result += operation;
         }
     }
+    const historyCalc = calculate(result);
+    history = historyCalc === 'Error' ? history : historyCalc;
     this.setState({
       result,
       history
